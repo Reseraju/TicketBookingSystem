@@ -13,10 +13,10 @@ public class Concert extends Event {
 	}
 	
 	public Concert(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName,int totalSeats,
-	           double ticketPrice, String eventType, String artist, String type) {
-		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, eventType);
-		this.artist = "unknown";
-		this.type = "unknown";
+	           double ticketPrice, String artist, String type) {
+		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, "Concert");
+		this.artist = artist;
+		this.type = type;
 	}
 	
 	public String getArtist() {
@@ -35,9 +35,17 @@ public class Concert extends Event {
 		this.type = type;
 	}
 	
-	public void displayConcertDetails() {
-		super.displayEventDetails();
-		System.out.println("Artist : " + artist);
+	// Implement the abstract method
+    @Override
+	public void displayEventDetails() {
+		System.out.println("Event Name: " + getEventName());
+        System.out.println("Event Date: " + getEventDate());
+        System.out.println("Event Time: " + getEventTime());
+        System.out.println("Event Venue: " + getVenueName());
+        System.out.println("Total Seats: " + getTotalSeats());
+        System.out.println("Available Seats: " + getAvailableSeats());
+        System.out.println("Ticket Price: $" + getTicketPrice());
+        System.out.println("Artist : " + artist);
 		System.out.println("Type : " + type);
 	}
 

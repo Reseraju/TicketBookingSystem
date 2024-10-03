@@ -13,8 +13,8 @@ public class Sports extends Event {
 	}
 	
 	public Sports(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName,int totalSeats,
-	           double ticketPrice, String eventType, String sportName, String teamsName) {
-		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, eventType);
+	           double ticketPrice, String sportName, String teamsName) {
+		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, "Sports");
 		this.sportName = sportName;
 		this.teamsName = teamsName;
 	}
@@ -35,10 +35,18 @@ public class Sports extends Event {
 		this.teamsName = teamsName;
 	}
 	
-	public void displaySportDetails() {
-		super.displayEventDetails();
-		System.out.println("Sport Name : " + sportName);
+	
+	// Implement the abstract method
+    @Override
+	public void displayEventDetails() {
+		System.out.println("Event Name: " + getEventName());
+        System.out.println("Event Date: " + getEventDate());
+        System.out.println("Event Time: " + getEventTime());
+        System.out.println("Event Venue: " + getVenueName());
+        System.out.println("Total Seats: " + getTotalSeats());
+        System.out.println("Available Seats: " + getAvailableSeats());
+        System.out.println("Ticket Price: $" + getTicketPrice());
+        System.out.println("Sport Name : " + sportName);
 		System.out.println("Teams Name : " + teamsName);
 	}
-
 }

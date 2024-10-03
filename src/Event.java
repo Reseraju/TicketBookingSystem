@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Event {
+public abstract class Event {
 	
 	private String eventName;
 	private LocalDate eventDate;
@@ -36,6 +36,9 @@ public class Event {
 		this.ticketPrice = ticketPrice;
 		this.eventType = eventType;
 	}
+	
+	// abstract method for displaying different events
+    public abstract void displayEventDetails();
 	
 	public String getEventName() {
 		return eventName;
@@ -139,18 +142,6 @@ public class Event {
     		return false;
     	}
     }
-	
     
-    // display event details
-    public void displayEventDetails() {
-    	System.out.println("Event Name: " + eventName);
-    	System.out.println("Event Date : " + eventDate);
-    	System.out.println("Event Time : " + eventTime);
-    	System.out.println("Event Venue : " + venueName);
-    	System.out.println("Event Type : " + eventType);
-    	System.out.println("Total Seats : " + totalSeats);
-    	System.out.println("Available Seats : " + availableSeats);
-    	System.out.println("Ticket Price : $" + ticketPrice);
-    }
 
 }
