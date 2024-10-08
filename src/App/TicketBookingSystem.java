@@ -1,44 +1,30 @@
+package App;
 import java.time.LocalDate;
+
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class TicketBookingSystem extends BookingSystem {
+import Bean.Event;
+import Bean.Venue;
+import Bean.EventServiceProviderImpl;
 
-    @Override
-    public Event createEvent(String eventName, String date, String time, int totalSeats, 
-                             double ticketPrice, String eventType, String venueName) {
+public class TicketBookingSystem  {
 
-        LocalDate eventDate = LocalDate.parse(date);
-        LocalTime eventTime = LocalTime.parse(time);
-        
-        Event newEvent;
-        
-        switch(eventType.toLowerCase()) {
-            case "movie":
-                newEvent = new Movie(eventName, eventDate, eventTime, venueName, totalSeats, 
-                                     ticketPrice, "Action", "Tom Hans", "Reese Witherspoon");
-                break;
-                
-            case "concert":
-                newEvent = new Concert(eventName, eventDate, eventTime, venueName, totalSeats, 
-                                       ticketPrice, "Coldplay", "Rock");
-                break;
-                
-            case "sports":
-                newEvent = new Sports(eventName, eventDate, eventTime, venueName, totalSeats, 
-                                      ticketPrice, "Cricket", "India Vs Pakistan");
-                break;
-                
-            default:
-                System.out.println("Invalid event type. Creating a default event...");
-                return null;
-        }
+    private List<Event> events; // List to hold events
+    private EventServiceProviderImpl eventServiceProvider; // Instance of EventServiceProviderImpl
 
-        events.add(newEvent); // Add event to the list
-        return newEvent;
+    public TicketBookingSystem() {
+        events = new ArrayList<>(); // Initialize the events list
+        eventServiceProvider = new EventServiceProviderImpl(); // Initialize event service provider
     }
 
-    @Override
+    public Event createEvent(String eventName, String date, String time, int totalSeats, 
+                             double ticketPrice, String eventType, Venue venue) {
+        return eventServiceProvider.createEvent(eventName, date, time, totalSeats, ticketPrice, eventType, venue);
+    }
+
     public void bookTickets(Event event, int numTickets) {
         if (event.bookTickets(numTickets)) {
             System.out.println("Total cost: $" + numTickets * event.getTicketPrice());
@@ -47,7 +33,7 @@ public class TicketBookingSystem extends BookingSystem {
         }
     }
 
-    @Override
+    
     public void cancelTickets(Event event, int numTickets) {
         if (event.cancelBooking(numTickets)) {
             System.out.println(numTickets + " tickets have been canceled.");
@@ -56,16 +42,17 @@ public class TicketBookingSystem extends BookingSystem {
         }
     }
 
-    @Override
+    
     public int getAvailableSeats(Event event) {
         return event.getAvailableSeats();
     }
 
-    @Override
+    
     public void displayEventDetails(Event event) {
         event.displayEventDetails();
     }
 
+    // Main method for user interaction
     public static void main(String[] args) {
         TicketBookingSystem tbs = new TicketBookingSystem();
         Scanner sc = new Scanner(System.in);
@@ -74,7 +61,7 @@ public class TicketBookingSystem extends BookingSystem {
         while (!exit) {
             System.out.println("\nEnter a command: \n1. Create Event \n2. Book Tickets \n3. Cancel Tickets \n4. Get Available Seats \n5. Display Event Details \n6. Exit");
             int choice = sc.nextInt();
-            sc.nextLine(); // consume newline
+            sc.nextLine(); // Consume newline
             
             switch (choice) {
                 case 1:
@@ -85,28 +72,35 @@ public class TicketBookingSystem extends BookingSystem {
                     System.out.print("Date (yyyy-mm-dd): ");
                     String date = sc.nextLine();
                     System.out.print("Time (hh:mm): ");
-                    
                     String time = sc.nextLine();
+                    
                     System.out.print("Total Seats: ");
                     int totalSeats = sc.nextInt();
                     
                     System.out.print("Ticket Price: ");
                     double price = sc.nextDouble();
-                    sc.nextLine(); // consume newline
+                    sc.nextLine(); // Consume newline
                     
                     System.out.print("Event Type (movie/concert/sports): ");
                     String eventType = sc.nextLine();
                     
                     System.out.print("Venue Name: ");
                     String venue = sc.nextLine();
+                    Venue venue1 = new Venue();
+                    venue1.setVenueName(venue);
 
-                    Event event = tbs.createEvent(eventName, date, time, totalSeats, price, eventType, venue);
-                    System.out.println("Event created successfully!");
+                    Event event = tbs.createEvent(eventName, date, time, totalSeats, price, eventType, venue1);
+                    if (event != null) {
+                        System.out.println("Event created successfully!");
+                        tbs.events.add(event); // Add the created event to the events list
+                    } else {
+                        System.out.println("Event creation failed.");
+                    }
                     break;
                     
                 case 2:
                     System.out.println("Select event to book tickets:");
-                    tbs.displayEventList(); // Assume a method to display event list
+                    tbs.displayEventList(); // Display list of events
                     int eventIndex = sc.nextInt();
                     System.out.print("Enter number of tickets to book: ");
                     int numTickets = sc.nextInt();
@@ -115,7 +109,7 @@ public class TicketBookingSystem extends BookingSystem {
                     
                 case 3:
                     System.out.println("Select event to cancel tickets:");
-                    tbs.displayEventList(); // Assume a method to display event list
+                    tbs.displayEventList(); // Display list of events
                     eventIndex = sc.nextInt();
                     System.out.print("Enter number of tickets to cancel: ");
                     int cancelTickets = sc.nextInt();
@@ -124,7 +118,7 @@ public class TicketBookingSystem extends BookingSystem {
                     
                 case 4:
                     System.out.println("Select event to check available seats:");
-                    tbs.displayEventList(); // Assume a method to display event list
+                    tbs.displayEventList(); // Display list of events
                     eventIndex = sc.nextInt();
                     int availableSeats = tbs.getAvailableSeats(tbs.events.get(eventIndex - 1));
                     System.out.println("Available seats: " + availableSeats);
@@ -132,7 +126,7 @@ public class TicketBookingSystem extends BookingSystem {
                     
                 case 5:
                     System.out.println("Select event to display details:");
-                    tbs.displayEventList(); // Assume a method to display event list
+                    tbs.displayEventList(); // Display list of events
                     eventIndex = sc.nextInt();
                     tbs.displayEventDetails(tbs.events.get(eventIndex - 1));
                     break;
@@ -151,6 +145,10 @@ public class TicketBookingSystem extends BookingSystem {
 
     // Add this method to display the list of events
     public void displayEventList() {
+        if (events.isEmpty()) {
+            System.out.println("No events available.");
+            return;
+        }
         for (int i = 0; i < events.size(); i++) {
             System.out.println((i + 1) + ". " + events.get(i).getEventName() + " (" + events.get(i).getEventType() + ")");
         }

@@ -1,10 +1,11 @@
+package Bean;
 
 public class Venue {
 	
 	private String venueName;
 	private String address;
 	
-	Venue(){
+	public Venue(){
 		venueName = null;
 		address = null;
 	}

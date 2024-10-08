@@ -1,3 +1,4 @@
+package Bean;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -58,31 +59,6 @@ public class Booking {
 	
 	public void getEventDetails() {
 		event.displayEventDetails();
-	}
-	
-	public static void main(String[] args) {
-		
-		Event event1 = new Concert("Rock Concert", LocalDate.of(2024, 10, 15), LocalTime.of(20, 0),
-                "Stadium A", 5000, 100, "Coldplay", "Concert");
-		
-		
-		Booking booking1 = new Booking(event1);
-		
-		System.out.println("-----------------Event Details-------------------\n");
-		booking1.getEventDetails();
-		
-		System.out.println("\n-----------------Booking Tickets-------------------\n");
-		booking1.bookTickets(100);
-		
-		System.out.println("\n-----------------Displaying available tickets-------------------\n");
-		booking1.getAvailableNoOfTickets();
-		
-		System.out.println("\n-----------------Cancelling Tickets-------------------\n");
-		booking1.cancelTickets(50);
-		
-		System.out.println("\n-----------------Displaying available tickets-------------------\n");
-		booking1.getAvailableNoOfTickets();
-	
 	}
 
 }

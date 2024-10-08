@@ -1,3 +1,4 @@
+package Bean;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,9 +13,9 @@ public class Sports extends Event {
 		this.teamsName = "unknown";
 	}
 	
-	public Sports(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName,int totalSeats,
+	public Sports(String eventName, LocalDate eventDate, LocalTime eventTime, Venue venue,int totalSeats,
 	           double ticketPrice, String sportName, String teamsName) {
-		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, "Sports");
+		super(eventName, eventDate, eventTime, venue, totalSeats, ticketPrice, "Sports");
 		this.sportName = sportName;
 		this.teamsName = teamsName;
 	}

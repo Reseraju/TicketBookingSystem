@@ -1,3 +1,4 @@
+package Bean;
 
 public class Customer {
 	String customerName;

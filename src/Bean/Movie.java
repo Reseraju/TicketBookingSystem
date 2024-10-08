@@ -1,3 +1,4 @@
+package Bean;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,9 +14,9 @@ public class Movie extends Event {
 		this.actressName = "unknown";
 	}
 	
-	public Movie(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName, int totalSeats,
+	public Movie(String eventName, LocalDate eventDate, LocalTime eventTime, Venue venue, int totalSeats,
 	           double ticketPrice,String genre, String actorName, String actressName) {
-		super(eventName, eventDate, eventTime, venueName, totalSeats, ticketPrice, "Movie");
+		super(eventName, eventDate, eventTime, venue, totalSeats, ticketPrice, "Movie");
 		this.genre =genre;
 		this.actorName = actorName;
 		this.actressName = actressName;

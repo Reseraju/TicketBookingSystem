@@ -1,7 +1,12 @@
+package Bean;
+
 import java.time.LocalDate;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import Service.IEventServiceProvider;
 
 public class EventServiceProviderImpl implements IEventServiceProvider {
 
@@ -26,21 +31,21 @@ public class EventServiceProviderImpl implements IEventServiceProvider {
                 String genre = getInput("Enter Genre: ");
                 String actorName = getInput("Enter Actor Name: ");
                 String actressName = getInput("Enter Actress Name: ");
-                event = new Movie(eventName, eventDate, eventTime, venue.getVenueName(), totalSeats, ticketPrice, genre, actorName, actressName);
+                event = new Movie(eventName, eventDate, eventTime, venue, totalSeats, ticketPrice, genre, actorName, actressName);
                 break;
 
             case "concert":
                 // For concert, gather additional details: artist and type
                 String artist = getInput("Enter Artist Name: ");
                 String concertType = getInput("Enter Concert Type (e.g., Rock, Jazz): ");
-                event = new Concert(eventName, eventDate, eventTime, venue.getVenueName(), totalSeats, ticketPrice, artist, concertType);
+                event = new Concert(eventName, eventDate, eventTime, venue, totalSeats, ticketPrice, artist, concertType);
                 break;
 
             case "sports":
                 // For sports, gather additional details: sport name and team names
                 String sportName = getInput("Enter Sport Name: ");
                 String teamsName = getInput("Enter Teams Name: ");
-                event = new Sports(eventName, eventDate, eventTime, venue.getVenueName(), totalSeats, ticketPrice, sportName, teamsName);
+                event = new Sports(eventName, eventDate, eventTime, venue, totalSeats, ticketPrice, sportName, teamsName);
                 break;
 
             default:

@@ -1,3 +1,4 @@
+package Bean;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,19 +19,19 @@ public abstract class Event {
 		this.eventName = "unknown";
 		this.eventDate = null;
 		this.eventTime = null;
-		this.venueName = "unknown";
+		this.venueName = null;
 		this.totalSeats = 0;
 		this.availableSeats = 0;
 		this.ticketPrice = 0.0;
 		this.eventType = "unknown";
 	}
 	
-	public Event(String eventName, LocalDate eventDate, LocalTime eventTime, String venueName,int totalSeats,
+	public Event(String eventName, LocalDate eventDate, LocalTime eventTime, Venue venue,int totalSeats,
 	           double ticketPrice, String eventType ) {
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventTime = eventTime;
-		this.venueName = venueName;
+		this.venueName = venue.getVenueName();
 		this.totalSeats = totalSeats;
 		this.availableSeats = totalSeats;
 		this.ticketPrice = ticketPrice;

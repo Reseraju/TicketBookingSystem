@@ -1,3 +1,6 @@
+package Service;
+import Bean.Booking;
+import Bean.Customer;
 
 public interface IBookingSystemServiceProvider {
 	double calculateBookingCost(int numTickets, double ticketPrice);
